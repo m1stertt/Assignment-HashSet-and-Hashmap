@@ -1,16 +1,18 @@
 package com.company;
 
+import java.util.Objects;
+
 public class Customer {
 
     private String phoneNumber;
     private String name;
-    private String Address;
+    private String address;
     private String email;
 
     public Customer(String phoneNumber, String name, String address, String email) {
         this.phoneNumber = phoneNumber;
         this.name = name;
-        Address = address;
+        this.address = address;
         this.email = email;
     }
 
@@ -31,11 +33,11 @@ public class Customer {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getEmail() {
@@ -48,11 +50,21 @@ public class Customer {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(phoneNumber, name, email, address);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj == this) return true;
+        if (!(obj instanceof Customer)) {
+            return false;
+        }
+
+        Customer customer = (Customer) obj;
+
+        return customer.phoneNumber.equals(phoneNumber) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(email, customer.email) &&
+                Objects.equals(address, customer.address);
     }
 }
